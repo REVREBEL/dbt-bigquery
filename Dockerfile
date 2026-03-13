@@ -24,14 +24,14 @@ RUN pip install --no-cache-dir \
     uv
 
 # 3. Setup Project Directory
-WORKDIR /usr/app/dbt_project
+WORKDIR /usr/app/dbt
 
 # FIXED: Corrected the COPY instruction with proper spacing
 COPY ..
 
 # Environment setup for profiles and credentials
-ENV DBT_PROFILES_DIR=/usr/app/dbt_project
-ENV GOOGLE_APPLICATION_CREDENTIALS=/usr/app/dbt_project/gcp-key.json
+ENV DBT_PROFILES_DIR=/usr/app/dbt
+ENV GOOGLE_APPLICATION_CREDENTIALS=/usr/app/dbt/gcp-key.json
 
 # Provide an unambiguous alias for the Fusion engine
 RUN ln -s /usr/local/bin/dbt /usr/local/bin/dbtf
