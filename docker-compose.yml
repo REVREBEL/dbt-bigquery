@@ -47,7 +47,7 @@ services:
     depends_on:
       - dbt-dev
     volumes:
-      -.:/usr/app/dbt_project
+      - .:/usr/app/dbt_project
     environment:
       - DBT_PROJECT_DIR=/usr/app/dbt_project
       - DBT_PROFILES_DIR=/usr/app/dbt_project
