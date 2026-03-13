@@ -1,5 +1,5 @@
 # File: Dockerfile
-FROM ghcr.io/dbt-labs/bigquery:latest
+FROM ghcr.io/dbt-labs/dbt-bigquery:1.9.latest
 
 # Switch to root to install system dependencies
 USER root
