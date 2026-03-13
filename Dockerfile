@@ -15,12 +15,12 @@ RUN dbt --version || which dbt || ls -la /usr/local/bin
 # The official script fetches the high-performance Rust binary
 ENV PATH="/root/.local/bin:${PATH}"
 
-RUN curl -fsSL -o /tmp/dbt-install.sh https://public.cdn.getdbt.com/fs/install/install.sh \
- && chmod +x /tmp/dbt-install.sh \
- && /bin/sh /tmp/dbt-install.sh \
- && dbtf --version
+#RUN curl -fsSL -o /tmp/dbt-install.sh https://public.cdn.getdbt.com/fs/install/install.sh \
+#
+# && chmod +x /tmp/dbt-install.sh \
+# && /bin/sh /tmp/dbt-install.sh \
+# && dbtf --version
  
-
 # 2. Install Python Utilities
 # dbt-osmosis: For dynamic schema syncing
 # metricflow: For the semantic layer (Searchable Definitions)
