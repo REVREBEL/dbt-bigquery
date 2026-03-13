@@ -19,7 +19,9 @@ services:
     hostname: dbt_bigquery
     restart: unless-stopped
     volumes:
-      - .:/usr/app/dbt_project
+      - type: bind
+        source: .
+        target: /usr/app/dbt_project
       # Mount local gcloud config for ADC (Application Default Credentials)
       - ${HOME}/.config/gcloud:/root/.config/gcloud
     env_file: .env
@@ -47,7 +49,9 @@ services:
     depends_on:
       - dbt-dev
     volumes:
-      - .:/usr/app/dbt_project
+      - type: bind
+        source: .
+        target: /usr/app/dbt_project
     environment:
       - DBT_PROJECT_DIR=/usr/app/dbt_project
       - DBT_PROFILES_DIR=/usr/app/dbt_project
