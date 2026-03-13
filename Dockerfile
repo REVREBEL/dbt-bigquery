@@ -27,7 +27,7 @@ RUN pip install --no-cache-dir \
 WORKDIR /usr/app/dbt
 
 # FIXED: Corrected the COPY instruction with proper spacing
-COPY ..
+COPY . .
 
 # Environment setup for profiles and credentials
 ENV DBT_PROFILES_DIR=/usr/app/dbt
