@@ -24,7 +24,6 @@ services:
         target: /usr/app/dbt_project
       # Mount local gcloud config for ADC (Application Default Credentials)
       - ${HOME}/.config/gcloud:/root/.config/gcloud
-    env_file: .env
     environment:
       - PUID=1000
       - PGID=1000
@@ -61,7 +60,6 @@ services:
       - TZ=America/Los_Angeles
     command: >
       sh -c "pip install dbt-mcp uv && uvx dbt-mcp"
-    env_file: .env
     healthcheck: 
       test: ["CMD", "dbt", "--version"]
       interval: 30s
