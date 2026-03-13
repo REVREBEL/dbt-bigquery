@@ -21,28 +21,30 @@ ENV PATH="/root/.local/bin:${PATH}"
 # && /bin/sh /tmp/dbt-install.sh \
 # && dbtf --version
  
-# 2. Install Python Utilities
+# 2. Setup Project Directory
+WORKDIR /usr/app/dbt_project
+
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:${PATH}"
+
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+
+# 3. Install Python Utilities
 # dbt-osmosis: For dynamic schema syncing
 # metricflow: For the semantic layer (Searchable Definitions)
 # dbt-mcp: For AI integration (Model Context Protocol)
 RUN pip install --no-cache-dir \
-    dbt-osmosis \
-    metricflow \
+    uv \
     dbt-mcp \
-    uv
+    dbt-osmosis \
+    "dbt-metricflow[dbt-bigquery]"
 
-# 3. Setup Project Directory
-WORKDIR /usr/app/dbt
-
-# FIXED: Corrected the COPY instruction with proper spacing
 COPY . .
 
-# Environment setup for profiles and credentials
-ENV DBT_PROFILES_DIR=/usr/app/dbt
-ENV GOOGLE_APPLICATION_CREDENTIALS=/usr/app/dbt/gcp-key.json
+ENV DBT_PROFILES_DIR=/usr/app/dbt_project
+ENV GOOGLE_APPLICATION_CREDENTIALS=/usr/app/dbt_project/gcp-key.json
 
 # Provide an unambiguous alias for the Fusion engine
 RUN ln -s /usr/local/bin/dbt /usr/local/bin/dbtf
 
-# Keep the container running for development
 ENTRYPOINT ["tail", "-f", "/dev/null"]
