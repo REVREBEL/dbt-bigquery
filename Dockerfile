@@ -13,9 +13,13 @@ RUN dbt --version || which dbt || ls -la /usr/local/bin
 
 # 1. Install dbt Fusion Engine Binary
 # The official script fetches the high-performance Rust binary
-RUN curl -fsSL https://public.cdn.getdbt.com/fs/install/install.sh | sh
 ENV PATH="/root/.local/bin:${PATH}"
-RUN dbtf --version
+
+RUN curl -fsSL -o /tmp/dbt-install.sh https://public.cdn.getdbt.com/fs/install/install.sh \
+ && chmod +x /tmp/dbt-install.sh \
+ && /bin/sh /tmp/dbt-install.sh \
+ && dbtf --version
+ 
 
 # 2. Install Python Utilities
 # dbt-osmosis: For dynamic schema syncing
